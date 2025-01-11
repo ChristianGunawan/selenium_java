@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,12 @@ public class InventoryPage extends BasePage {
     @FindBy(id = "logout_sidebar_link")
     private WebElement logoutLink;
 
+    @FindBy(id = "item_4_title_link")
+    private WebElement firstInventoryItemName;
+
+    @FindBy(id = "item-4-img-link")
+    private WebElement firstInventoryItemImg;
+
     public InventoryPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -30,13 +37,38 @@ public class InventoryPage extends BasePage {
         return inventoryItem.isDisplayed();
     }
 
+    public void clickProductName() {
+        firstInventoryItemName.click();
+    }
+
+    public void clickProductImg() {
+        firstInventoryItemImg.click();
+    }
+
+
     /**
-     * Performs logout action.
+     * Performs action.
      */
     public void logout() {
         menuButton.click();
         logoutLink.click();
     }
+
+    public String getProductNameFromLink(String productLinkId, String dataTestAttribute) {
+        WebElement productLink = driver.findElement(By.id(productLinkId));
+        return productLink.findElement(By.cssSelector(dataTestAttribute)).getText();
+    }
+
+    public void clickProductName(String productLinkId) {
+        WebElement productLink = driver.findElement(By.id(productLinkId));
+        productLink.click();
+    }
+
+    public String getProductNameFromDetailsPage(String productNameSelector) {
+        WebElement productNameElement = driver.findElement(By.cssSelector(productNameSelector));
+        return productNameElement.getText();
+    }
+
 }
 
 

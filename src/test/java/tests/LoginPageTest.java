@@ -29,7 +29,13 @@ public class LoginPageTest extends BaseTest {
 
         Assert.assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username and password do not match any user in this service",
-                "Error message should match expected.");
+                "Epic sadface: Username and password do not match any user in this service");
+
+        // Verify that the user is not redirected to the inventory page
+        // Verify that the user is not redirected to the inventory page
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertFalse("User should not be redirected to inventory page after failed login.",
+                currentUrl.contains("/inventory.html"));
     }
 
     @Test(description = "Test logout functionality")
